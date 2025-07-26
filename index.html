@@ -1,917 +1,713 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Sebastian Valencia - Full-Stack Developer</title>
+    <title>John Sebastian Valencia - Elite Full-Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slide-up 0.6s ease-out',
+                        'fade-in': 'fade-in 0.8s ease-out',
+                        'gradient': 'gradient 15s ease infinite',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret .75s step-end infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        'pulse-glow': {
+                            '0%': { boxShadow: '0 0 20px #3b82f6' },
+                            '100%': { boxShadow: '0 0 40px #3b82f6, 0 0 60px #3b82f6' }
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        },
+                        typing: {
+                            '0%': { width: '0' },
+                            '100%': { width: '100%' }
+                        },
+                        'blink-caret': {
+                            '0%, 50%': { borderColor: 'transparent' },
+                            '51%, 100%': { borderColor: '#3b82f6' }
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'mesh-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'hero-pattern': 'radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 75% 75%, #8b5cf6 0%, transparent 50%)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        :root {
-            --primary-color: #0f172a;
-            --secondary-color: #1e293b;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Scrollbar personalizado */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--secondary-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 4px;
-        }
-
-        /* Navegación */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-secondary);
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        
+        .gradient-border {
             position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 2px;
+            border-radius: 1rem;
         }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
+        
+        .gradient-border > div {
+            background: #1e293b;
+            border-radius: calc(1rem - 2px);
         }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-secondary);
-            transition: width 0.3s ease;
+        
+        .animate-gradient {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #3b82f6, #8b5cf6);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
+        
+        .typing-effect {
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-container {
-            max-width: 1200px;
+            border-right: .15em solid #3b82f6;
+            white-space: nowrap;
             margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
         }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+        
+        .code-block {
+            font-family: 'Fira Code', 'Courier New', monospace;
         }
-
-        .hero-content .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+        
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.02);
         }
-
-        .hero-content .description {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient-secondary);
-            color: white;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 2px solid var(--accent-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Hero Visual */
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .code-window {
-            background: var(--secondary-color);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            position: relative;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .window-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(203, 213, 225, 0.1);
-        }
-
-        .window-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #f59e0b; }
-        .dot-green { background: #10b981; }
-
-        .code-content {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .code-line {
-            margin-bottom: 0.5rem;
-        }
-
-        .keyword { color: #8b5cf6; }
-        .string { color: #10b981; }
-        .function { color: #3b82f6; }
-        .comment { color: var(--text-muted); }
-
-        /* Contact Info */
-        .contact-info {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .contact-item i {
-            color: var(--accent-color);
-            width: 20px;
-        }
-
-        /* Sections */
-        section {
-            padding: 5rem 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-category {
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-color);
-        }
-
-        .skill-category h3 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-color);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* Experience Section */
-        .experience-timeline {
-            position: relative;
-            margin-top: 3rem;
-        }
-
-        .experience-timeline::before {
-            content: '';
-            position: absolute;
-            left: 2rem;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--gradient-secondary);
-        }
-
-        .experience-item {
-            position: relative;
-            margin-left: 4rem;
-            margin-bottom: 3rem;
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .experience-item:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-color);
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -3.5rem;
-            top: 2rem;
-            width: 1rem;
-            height: 1rem;
-            background: var(--accent-color);
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-        }
-
-        .experience-header {
-            margin-bottom: 1rem;
-        }
-
-        .job-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .company {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .experience-description {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tech-item {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: var(--secondary-color);
-            border-radius: 1rem;
-            overflow: hidden;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
+        
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-color);
+            transform: translateY(-15px);
         }
-
-        .project-header {
-            padding: 1.5rem;
-            background: var(--gradient-secondary);
-            color: white;
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
         }
-
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-summary {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .contact-info-section h3 {
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--secondary-color);
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-        }
-
-        .contact-detail:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: var(--accent-color);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-secondary);
+        
+        .floating-shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.1rem;
+            animation: float 6s ease-in-out infinite;
         }
-
-        .contact-text {
-            flex: 1;
+        
+        .floating-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
         }
-
-        .contact-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
+        
+        .floating-shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
         }
-
-        .contact-value {
-            color: var(--text-primary);
-            font-weight: 500;
+        
+        .floating-shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 80%;
+            animation-delay: 4s;
         }
-
-        /* Statistics */
-        .stats-grid {
+        
+        .parallax-element {
+            transition: transform 0.1s ease-out;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--secondary-color);
-            border-radius: 1rem;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--accent-color);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--gradient-secondary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--secondary-color);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
-            margin-bottom: 2rem;
         }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .typing-effect {
+                animation: none;
+                border-right: none;
+                white-space: normal;
             }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .experience-timeline::before {
-                left: 1rem;
-            }
-
-            .experience-item {
-                margin-left: 2rem;
-            }
-
-            .experience-item::before {
-                left: -2.5rem;
-            }
-
-            .container {
-                padding: 0 1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        /* Floating elements */
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
-<body>
+<body class="bg-dark-900 text-white font-inter overflow-x-hidden">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">JSV</div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-mi">Sobre Mí</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#experiencia">Experiencia</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="glass-effect">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white">
+                            JSV
+                        </div>
+                        <span class="text-xl font-bold gradient-text">John Valencia</span>
+                    </div>
+                    
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#inicio" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Inicio</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                        <a href="#sobre-mi" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Sobre Mí</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                        <a href="#habilidades" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Skills</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                        <a href="#experiencia" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Experiencia</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                        <a href="#proyectos" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Proyectos</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                        <a href="#contacto" class="nav-link text-gray-300 hover:text-primary-400 transition-colors duration-300 relative group">
+                            <span>Contacto</span>
+                            <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></div>
+                        </a>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="mailto:sebastianpaezservices@gmail.com" class="bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 px-6 py-2 rounded-full text-white font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            Contrátame
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-gray-300 hover:text-white">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden glass-effect">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#inicio" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Inicio</a>
+                <a href="#sobre-mi" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Sobre Mí</a>
+                <a href="#habilidades" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Skills</a>
+                <a href="#experiencia" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Experiencia</a>
+                <a href="#proyectos" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Proyectos</a>
+                <a href="#contacto" class="block px-3 py-2 text-gray-300 hover:text-primary-400">Contacto</a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
-        <div class="hero-container">
-            <div class="hero-content fade-in-up">
-                <h1>John Sebastian Valencia</h1>
-                <p class="subtitle">Full-Stack Developer & Digital Solutions Expert</p>
-                <p class="description">
-                    Desarrollador Full-Stack especializado en soluciones web empresariales con más de 3 años de experiencia. 
-                    Experto en PHP, sistemas HRMS, gestión de inventarios y desarrollo de aplicaciones escalables para 
-                    diversos sectores industriales.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#proyectos" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Ver Proyectos
-                    </a>
-                    <a href="#contacto" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i> Contactar
-                    </a>
+    <section id="inicio" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-hero-pattern opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8 animate-slide-up">
+                    <div class="space-y-4">
+                        <div class="text-primary-400 font-medium text-lg flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+                            <span>Disponible para proyectos</span>
+                        </div>
+                        
+                        <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                            <span class="gradient-text">John Sebastian</span><br>
+                            <span class="text-white typing-effect">Valencia Paez</span>
+                        </h1>
+                        
+                        <div class="text-xl lg:text-2xl text-gray-300 space-y-2">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-code text-primary-500"></i>
+                                <span>Full-Stack Developer</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-rocket text-purple-500"></i>
+                                <span>Enterprise Solutions Expert</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <span>3+ Años de Experiencia</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
+                        Especialista en desarrollo de <span class="text-primary-400 font-semibold">soluciones empresariales complejas</span>, 
+                        sistemas HRMS, gestión de inventarios y aplicaciones web escalables. 
+                        Transformo ideas en <span class="text-purple-400 font-semibold">experiencias digitales extraordinarias</span>.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#proyectos" class="group bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl flex items-center justify-center space-x-2">
+                            <i class="fas fa-rocket group-hover:animate-bounce"></i>
+                            <span>Ver Mi Trabajo</span>
+                        </a>
+                        <a href="#contacto" class="group border-2 border-primary-500 hover:bg-primary-500 px-8 py-4 rounded-full text-primary-400 hover:text-white font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                            <i class="fas fa-paper-plane group-hover:animate-pulse"></i>
+                            <span>Hablemos</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8">
+                        <div class="flex items-center space-x-3 text-gray-400">
+                            <div class="w-10 h-10 bg-primary-500/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Ubicación</div>
+                                <div class="text-white font-medium">Chía, Colombia</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 text-gray-400">
+                            <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Teléfono</div>
+                                <div class="text-white font-medium">+57 316 023 9057</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 text-gray-400">
+                            <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-purple-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Email</div>
+                                <div class="text-white font-medium">sebastianpaez...</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Chía, Cundinamarca, Colombia</span>
+                
+                <!-- Right Content - Interactive Code Demo -->
+                <div class="relative animate-float">
+                    <div class="glass-effect rounded-2xl p-6 shadow-2xl glow-effect">
+                        <!-- Terminal Header -->
+                        <div class="flex items-center space-x-2 mb-6">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="text-gray-400 text-sm ml-4">enterprise-systems.php</div>
+                        </div>
+                        
+                        <!-- Code Content -->
+                        <div class="code-block text-sm space-y-2 font-mono">
+                            <div class="text-purple-400">&lt;?php</div>
+                            <div class="text-gray-500">// Enterprise Solutions Architecture</div>
+                            <div class="text-blue-400">class <span class="text-yellow-400">EnterpriseSystems</span> {</div>
+                            <div class="ml-4">
+                                <div class="text-gray-300">public function <span class="text-green-400">deployHRMS</span>() {</div>
+                                <div class="ml-4 text-orange-400">return <span class="text-green-300">'Advanced HR Management'</span>;</div>
+                                <div class="text-gray-300">}</div>
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-gray-300">public function <span class="text-green-400">manageInventory</span>() {</div>
+                                <div class="ml-4 text-orange-400">return <span class="text-green-300">'Real-time Tracking'</span>;</div>
+                                <div class="text-gray-300">}</div>
+                            </div>
+                            <div class="text-blue-400">}</div>
+                            <div class="text-gray-500 mt-4">// Deployed Systems Statistics</div>
+                            <div class="text-green-400">$uptime = <span class="text-yellow-400">'99.9%'</span>;</div>
+                            <div class="text-green-400">$performance = <span class="text-yellow-400">'Optimized'</span>;</div>
+                            <div class="text-purple-400">?&gt;</div>
+                        </div>
+                        
+                        <!-- Live Metrics -->
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                                <div class="text-green-400 text-xs font-semibold">SISTEMAS ACTIVOS</div>
+                                <div class="text-green-300 text-xl font-bold" id="active-systems">4</div>
+                            </div>
+                            <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
+                                <div class="text-blue-400 text-xs font-semibold">UPTIME</div>
+                                <div class="text-blue-300 text-xl font-bold" id="uptime">99.9%</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+57 316 023 90 57</span>
+                    
+                    <!-- Floating Tech Icons -->
+                    <div class="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg animate-pulse">
+                        <i class="fab fa-php text-white text-xl"></i>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>sebastianpaezservices@gmail.com</span>
+                    <div class="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg animate-pulse">
+                        <i class="fas fa-database text-white text-xl"></i>
                     </div>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="code-window floating">
-                    <div class="window-header">
-                        <div class="window-dot dot-red"></div>
-                        <div class="window-dot dot-yellow"></div>
-                        <div class="window-dot dot-green"></div>
-                        <span style="margin-left: 1rem; color: var(--text-muted); font-size: 0.9rem;">systems.php</span>
-                    </div>
-                    <div class="code-content">
-                        <div class="code-line">
-                            <span class="keyword">&lt;?php</span>
-                        </div>
-                        <div class="code-line">
-                            <span class="comment">// Enterprise Solutions</span>
-                        </div>
-                        <div class="code-line">
-                            <span class="keyword">class</span> <span class="function">HRMSSystem</span> {
-                        </div>
-                        <div class="code-line">
-                            &nbsp;&nbsp;<span class="keyword">public function</span> <span class="function">manage</span>() {
-                        </div>
-                        <div class="code-line">
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">'Advanced Solutions'</span>;
-                        </div>
-                        <div class="code-line">
-                            &nbsp;&nbsp;}
-                        </div>
-                        <div class="code-line">};</div>
-                        <div class="code-line">
-                            <span class="comment">// Inventory Management</span>
-                        </div>
-                        <div class="code-line">
-                            <span class="function">$inventory</span> = <span class="keyword">new</span> <span class="function">InventorySystem</span>();
-                        </div>
-                        <div class="code-line">
-                            <span class="function">$inventory</span>-><span class="function">trackEquipment</span>();
-                        </div>
-                        <div class="code-line">
-                            <span class="keyword">?&gt;</span>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"></div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section id="sobre-mi" style="background: var(--secondary-color);">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">3+</div>
-                    <div class="stat-label">Años de Experiencia</div>
+    <section id="sobre-mi" class="py-20 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold gradient-text mb-2" data-count="3">0</div>
+                    <div class="text-gray-400 font-medium">Años Experiencia</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Sistemas Empresariales</div>
+                
+                <div class="text-center group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-project-diagram text-white text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold gradient-text mb-2" data-count="4">0</div>
+                    <div class="text-gray-400 font-medium">Sistemas Empresariales</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">60%</div>
-                    <div class="stat-label">Mejora en Operaciones</div>
+                
+                <div class="text-center group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold gradient-text mb-2" data-count="60">0</div>
+                    <div class="text-gray-400 font-medium">% Mejora Operacional</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime de Sistemas</div>
+                
+                <div class="text-center group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-server text-white text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold gradient-text mb-2" data-count="99.9">0</div>
+                    <div class="text-gray-400 font-medium">% Uptime</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="habilidades">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Habilidades Técnicas</h2>
-                <p class="section-subtitle">
-                    Dominio completo del stack de desarrollo web moderno con especialización en soluciones empresariales
+    <section id="habilidades" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Stack Tecnológico</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Dominio completo de tecnologías modernas para crear soluciones empresariales escalables y de alto rendimiento
                 </p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Programación</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PHP</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">HTML5</span>
-                        <span class="skill-tag">CSS3</span>
-                        <span class="skill-tag">SQL</span>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Backend Development -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-server text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Backend Development</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">PHP</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-primary-500 to-purple-600 rounded-full transform origin-left animate-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Laravel</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-green-500 to-blue-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">MySQL</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-yellow-500 to-red-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">REST APIs</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-purple-500 to-pink-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">CodeIgniter</span>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">MariaDB</span>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Enterprise</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Laravel</span>
-                        <span class="skill-tag">CodeIgniter</span>
-                        <span class="skill-tag">RESTful APIs</span>
-                        <span class="skill-tag">Database Design</span>
-                        <span class="skill-tag">Enterprise Systems</span>
+                
+                <!-- Frontend Development -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-palette text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Frontend Development</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">JavaScript</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Tailwind CSS</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">HTML5/CSS3</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Responsive Design</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-green-500 to-teal-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Bootstrap</span>
+                        <span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm">AJAX</span>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">JSON</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-palette"></i> Frontend</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Tailwind CSS</span>
-                        <span class="skill-tag">Bootstrap</span>
-                        <span class="skill-tag">Responsive Design</span>
-                        <span class="skill-tag">AJAX</span>
-                        <span class="skill-tag">JSON</span>
+                
+                <!-- Enterprise Systems -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-building text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Enterprise Systems</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">HRMS</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-emerald-500 to-green-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Inventory Mgmt</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">PQRS Systems</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-purple-500 to-violet-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Performance Eval</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-pink-500 to-rose-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">Workflow</span>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Analytics</span>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Automation</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Base de Datos</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">MariaDB</span>
-                        <span class="skill-tag">Query Optimization</span>
-                        <span class="skill-tag">Relational Design</span>
+                
+                <!-- Tools & Technologies -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-tools text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Tools & DevOps</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Git/GitHub</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-gray-500 to-gray-700 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">VS Code</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">XAMPP</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Composer</span>
+                            <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full transform origin-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-500/20 text-gray-400 rounded-full text-sm">Debugging</span>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Testing</span>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Deployment</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-cogs"></i> Sistemas</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HRMS</span>
-                        <span class="skill-tag">Inventory Management</span>
-                        <span class="skill-tag">PQRS</span>
-                        <span class="skill-tag">Performance Evaluation</span>
+                
+                <!-- Languages -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-language text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Idiomas</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-300">Español</span>
+                                <span class="text-primary-400 text-sm font-semibold">Nativo</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-300">English</span>
+                                <span class="text-primary-400 text-sm font-semibold">B2/C1</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="w-5/6 h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl border border-indigo-500/20">
+                        <div class="text-sm text-gray-300">
+                            <i class="fas fa-globe-americas text-indigo-400 mr-2"></i>
+                            Capacidad para trabajar con equipos internacionales y documentación técnica en inglés
+                        </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Herramientas</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">XAMPP</span>
-                        <span class="skill-tag">Composer</span>
+                
+                <!-- Certifications -->
+                <div class="skill-card glass-effect rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-certificate text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Certificaciones</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-white font-medium">Mobile App Development</div>
+                                <div class="text-primary-400 text-sm">Oracle Alura Latam</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-white font-medium">Advanced HTML5 & CSS3</div>
+                                <div class="text-green-400 text-sm">Oracle Alura Latam</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-white font-medium">UI/UX Design Principles</div>
+                                <div class="text-purple-400 text-sm">LinkedIn Learning</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-white font-medium">Web Development Fundamentals</div>
+                                <div class="text-yellow-400 text-sm">HTML & CSS I-II</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -919,94 +715,216 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experiencia" style="background: var(--secondary-color);">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Experiencia Profesional</h2>
-                <p class="section-subtitle">
-                    Trayectoria sólida desarrollando soluciones empresariales innovadoras y sistemas de gestión avanzados
+    <section id="experiencia" class="py-20 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Experiencia Profesional</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Trayectoria sólida desarrollando soluciones empresariales que transforman operaciones y optimizan procesos
                 </p>
             </div>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <h3 class="job-title">Senior Full-Stack Developer</h3>
-                        <div class="company">RYD JARDINEROS</div>
-                        <div class="date">Diciembre 2024 — Presente</div>
+            
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 to-purple-600 hidden lg:block"></div>
+                
+                <!-- Experience Items -->
+                <div class="space-y-12">
+                    <!-- RYD JARDINEROS -->
+                    <div class="relative lg:ml-20">
+                        <div class="absolute -left-20 top-8 w-4 h-4 bg-primary-500 rounded-full border-4 border-dark-900 hidden lg:block"></div>
+                        <div class="glass-effect rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 group hover:transform hover:scale-105">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
+                                        Senior Full-Stack Developer
+                                    </h3>
+                                    <div class="text-primary-400 font-semibold text-lg mb-2">RYD JARDINEROS</div>
+                                    <div class="flex items-center space-x-2 text-gray-400">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Diciembre 2024 — Presente</span>
+                                        <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold">ACTUAL</span>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-seedling text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-primary-500 mt-1"></i>
+                                    <p class="text-gray-300">Desarrollé sistema integral de gestión de inventarios con seguimiento de equipos, registros de entrega, gestión de facturas e historial completo de mantenimiento</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-primary-500 mt-1"></i>
+                                    <p class="text-gray-300">Implementé sistema PQRS completo para gestión de atención al cliente y seguimiento de calidad de servicios</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-primary-500 mt-1"></i>
+                                    <p class="text-gray-300">Creé plataforma de gestión de personal con módulos de evaluación de servicios y herramientas de assessment</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-primary-500 mt-1"></i>
+                                    <p class="text-gray-300">Desarrollé HRMS empresarial completo para gestión documental, archivos de empleados y procesos administrativos</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm font-medium">PHP</span>
+                                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm font-medium">Tailwind CSS</span>
+                                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">MySQL</span>
+                                <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">JavaScript</span>
+                                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">REST APIs</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="experience-description">
-                        Desarrollo integral de sistemas empresariales complejos incluyendo gestión de inventarios con seguimiento 
-                        de equipos, registro de entregas, gestión de facturas e historial de mantenimiento. Implementación de 
-                        sistema PQRS para atención al cliente y plataforma completa de gestión de personal con módulos de evaluación.
+                    
+                    <!-- FIREGAS DE COLOMBIA -->
+                    <div class="relative lg:ml-20">
+                        <div class="absolute -left-20 top-8 w-4 h-4 bg-orange-500 rounded-full border-4 border-dark-900 hidden lg:block"></div>
+                        <div class="glass-effect rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 group hover:transform hover:scale-105">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                                        Industrial Web Development Specialist
+                                    </h3>
+                                    <div class="text-orange-400 font-semibold text-lg mb-2">FIREGAS DE COLOMBIA</div>
+                                    <div class="flex items-center space-x-2 text-gray-400">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Agosto 2023 — Enero 2025</span>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-fire text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                                    <p class="text-gray-300">Desarrollé aplicaciones web basadas en PHP para el sector de seguridad industrial</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                                    <p class="text-gray-300">Creé soluciones web responsivas que mejoraron el engagement del usuario en un <span class="text-green-400 font-semibold">40%</span></p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                                    <p class="text-gray-300">Implementé APIs RESTful para integración con aplicaciones móviles y servicios de terceros</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm font-medium">PHP</span>
+                                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">MySQL</span>
+                                <span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm font-medium">HTML5</span>
+                                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium">CSS3</span>
+                                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">Bootstrap</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tech-stack">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">Tailwind CSS</span>
-                        <span class="tech-item">MySQL</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">REST APIs</span>
+                    
+                    <!-- ECOLÓGICO VIVERO -->
+                    <div class="relative lg:ml-20">
+                        <div class="absolute -left-20 top-8 w-4 h-4 bg-green-500 rounded-full border-4 border-dark-900 hidden lg:block"></div>
+                        <div class="glass-effect rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 group hover:transform hover:scale-105">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                                        Eco-Digital Marketing Specialist
+                                    </h3>
+                                    <div class="text-green-400 font-semibold text-lg mb-2">ECOLÓGICO VIVERO</div>
+                                    <div class="flex items-center space-x-2 text-gray-400">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Junio 2023 — Diciembre 2024</span>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-leaf text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-gray-300">Desarrollé aplicaciones PHP personalizadas para e-commerce y gestión de inventarios</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-gray-300">Implementé herramientas de automatización que incrementaron las ventas online en <span class="text-green-400 font-semibold">35%</span></p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-gray-300">Construí plataformas web bilingües para expansión a mercados internacionales</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <p class="text-gray-300">Optimicé estrategias SEO resultando en <span class="text-green-400 font-semibold">50% de aumento</span> en tráfico orgánico</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm font-medium">PHP</span>
+                                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium">WordPress</span>
+                                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">MySQL</span>
+                                <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">SEO</span>
+                                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">Analytics</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <h3 class="job-title">Industrial Web Development Specialist</h3>
-                        <div class="company">FIREGAS DE COLOMBIA</div>
-                        <div class="date">Agosto 2023 — Enero 2025</div>
-                    </div>
-                    <div class="experience-description">
-                        Desarrollo y mantenimiento de aplicaciones web basadas en PHP para el sector de seguridad industrial. 
-                        Creación de soluciones web responsivas que mejoraron el engagement del usuario en un 40%. Implementación 
-                        de APIs RESTful para integración con aplicaciones móviles y servicios de terceros.
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">MySQL</span>
-                        <span class="tech-item">HTML5</span>
-                        <span class="tech-item">CSS3</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">Bootstrap</span>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <h3 class="job-title">Eco-Digital Marketing Specialist</h3>
-                        <div class="company">ECOLÓGICO VIVERO</div>
-                        <div class="date">Junio 2023 — Diciembre 2024</div>
-                    </div>
-                    <div class="experience-description">
-                        Desarrollo de aplicaciones PHP personalizadas para e-commerce y gestión de inventarios. Implementación 
-                        de herramientas de automatización de marketing digital que incrementaron las ventas online en un 35%. 
-                        Construcción de plataformas web bilingües para expansión a mercados internacionales.
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">WordPress</span>
-                        <span class="tech-item">MySQL</span>
-                        <span class="tech-item">Google Analytics</span>
-                        <span class="tech-item">SEO</span>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <h3 class="job-title">Digital Solutions Specialist</h3>
-                        <div class="company">INGENIERÍA MULTIMEDIA</div>
-                        <div class="date">Febrero 2023 — Presente</div>
-                    </div>
-                    <div class="experience-description">
-                        Liderazgo de proyectos de desarrollo full-stack para clientes diversos de múltiples industrias. 
-                        Desarrollo de soluciones backend PHP personalizadas e interfaces frontend responsivas. Gestión 
-                        de arquitectura de bases de datos e integraciones API para aplicaciones escalables.
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">Laravel</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">MySQL</span>
-                        <span class="tech-item">Git</span>
-                        <span class="tech-item">RESTful APIs</span>
+                    
+                    <!-- INGENIERÍA MULTIMEDIA -->
+                    <div class="relative lg:ml-20">
+                        <div class="absolute -left-20 top-8 w-4 h-4 bg-purple-500 rounded-full border-4 border-dark-900 hidden lg:block"></div>
+                        <div class="glass-effect rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 group hover:transform hover:scale-105">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
+                                        Digital Solutions Specialist
+                                    </h3>
+                                    <div class="text-purple-400 font-semibold text-lg mb-2">INGENIERÍA MULTIMEDIA</div>
+                                    <div class="flex items-center space-x-2 text-gray-400">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Febrero 2023 — Presente</span>
+                                        <span class="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-semibold">FREELANCE</span>
+                                    </div>
+                                </div>
+                                <div class="hidden lg:block w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-laptop-code text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1"></i>
+                                    <p class="text-gray-300">Lideré proyectos de desarrollo full-stack para clientes de múltiples industrias</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1"></i>
+                                    <p class="text-gray-300">Desarrollé soluciones backend PHP personalizadas e interfaces frontend responsivas</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1"></i>
+                                    <p class="text-gray-300">Gestioné arquitectura de bases de datos e integraciones API para aplicaciones escalables</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1"></i>
+                                    <p class="text-gray-300">Proporcioné consultoría técnica y gestión de proyectos para transformación digital</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm font-medium">PHP</span>
+                                <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm font-medium">Laravel</span>
+                                <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">JavaScript</span>
+                                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">MySQL</span>
+                                <span class="px-3 py-1 bg-gray-500/20 text-gray-400 rounded-full text-sm font-medium">Git</span>
+                                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">APIs</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1014,144 +932,417 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="proyectos">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Proyectos Destacados</h2>
-                <p class="section-subtitle">
-                    Soluciones empresariales complejas que han optimizado procesos y mejorado la eficiencia operacional
+    <section id="proyectos" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Proyectos Destacados</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Soluciones empresariales que han revolucionado operaciones y establecido nuevos estándares de eficiencia
                 </p>
             </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Sistema Avanzado de Gestión de Inventarios</h3>
-                        <p class="project-summary">Seguimiento integral de equipos con historial completo</p>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Advanced Inventory Management -->
+                <div class="project-card glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 group">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-primary-600 to-purple-700 p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-boxes text-white text-2xl"></i>
+                                </div>
+                                <div class="px-3 py-1 bg-white/20 rounded-full text-white text-sm font-semibold">
+                                    ENTERPRISE
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Sistema Avanzado de Gestión de Inventarios</h3>
+                            <p class="text-primary-100">Plataforma integral con seguimiento completo de equipos y análisis predictivo</p>
+                        </div>
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                     </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Sistema integral de seguimiento de equipos con registro de entregas, gestión de facturas y 
-                            historial detallado de reparaciones y mantenimiento. Incluye alertas automatizadas, monitoreo 
-                            de stock en tiempo real y dashboard de reportes integrado.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-item">PHP</span>
-                            <span class="tech-item">MySQL</span>
-                            <span class="tech-item">Tailwind CSS</span>
-                            <span class="tech-item">JavaScript</span>
+                    
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-microchip text-primary-500"></i>
+                                <span class="text-gray-300">Seguimiento de equipos en tiempo real con IoT integration</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-chart-line text-green-500"></i>
+                                <span class="text-gray-300">Analytics predictivo para mantenimiento preventivo</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-mobile-alt text-purple-500"></i>
+                                <span class="text-gray-300">Aplicación móvil para gestión en campo</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-shield-alt text-blue-500"></i>
+                                <span class="text-gray-300">Sistema de alertas automatizadas y notificaciones</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Metrics -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary-400">75%</div>
+                                <div class="text-xs text-gray-500">Reducción tiempo procesamiento</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-400">99.9%</div>
+                                <div class="text-xs text-gray-500">Precisión inventario</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-400">40%</div>
+                                <div class="text-xs text-gray-500">Ahorro costos mantenimiento</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">PHP</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">MySQL</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Tailwind</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">JavaScript</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Plataforma PQRS de Atención al Cliente</h3>
-                        <p class="project-summary">Gestión completa de peticiones, quejas y reclamos</p>
+                
+                <!-- PQRS Customer Service Platform -->
+                <div class="project-card glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 group">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-green-600 to-blue-700 p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-headset text-white text-2xl"></i>
+                                </div>
+                                <div class="px-3 py-1 bg-white/20 rounded-full text-white text-sm font-semibold">
+                                    CRM
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Plataforma PQRS de Atención al Cliente</h3>
+                            <p class="text-green-100">Sistema completo de gestión de peticiones con IA para análisis de sentimientos</p>
+                        </div>
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                     </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Sistema completo para gestión de Peticiones, Quejas y Reclamos con enrutamiento automático 
-                            de workflows, seguimiento de respuestas, métricas de calidad de servicio y analytics de 
-                            satisfacción del cliente con interfaz responsiva moderna.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-item">PHP</span>
-                            <span class="tech-item">MySQL</span>
-                            <span class="tech-item">REST APIs</span>
-                            <span class="tech-item">Responsive Design</span>
+                    
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-robot text-green-500"></i>
+                                <span class="text-gray-300">IA para categorización automática de casos</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-clock text-blue-500"></i>
+                                <span class="text-gray-300">SLA tracking y escalamiento automático</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-comments text-purple-500"></i>
+                                <span class="text-gray-300">Chat en tiempo real con agentes</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-analytics text-orange-500"></i>
+                                <span class="text-gray-300">Dashboard ejecutivo con métricas avanzadas</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Metrics -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-400">85%</div>
+                                <div class="text-xs text-gray-500">Satisfacción cliente</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-400">50%</div>
+                                <div class="text-xs text-gray-500">Reducción tiempo respuesta</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-400">200%</div>
+                                <div class="text-xs text-gray-500">Aumento eficiencia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">PHP</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">WebSocket</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Chart.js</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">APIs</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Sistema de Gestión de Personal y Evaluación</h3>
-                        <p class="project-summary">Plataforma integral de recursos humanos</p>
+                
+                <!-- Personnel Management System -->
+                <div class="project-card glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 group">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-purple-600 to-pink-700 p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-users text-white text-2xl"></i>
+                                </div>
+                                <div class="px-3 py-1 bg-white/20 rounded-full text-white text-sm font-semibold">
+                                    HR TECH
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Sistema de Gestión de Personal y Evaluación</h3>
+                            <p class="text-purple-100">Plataforma 360° con machine learning para evaluaciones predictivas</p>
+                        </div>
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
                     </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Plataforma integrada de gestión de personal con módulos completos de evaluación de servicios. 
-                            Incluye herramientas de assessment de desempeño, sistema de calificación de calidad de servicio, 
-                            gestión de feedback de empleados y dashboard analytics detallado.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-item">PHP</span>
-                            <span class="tech-item">Laravel</span>
-                            <span class="tech-item">MySQL</span>
-                            <span class="tech-item">Chart.js</span>
+                    
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-brain text-purple-500"></i>
+                                <span class="text-gray-300">ML para predicción de performance y retención</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <span class="text-gray-300">Sistema 360° de evaluaciones peer-to-peer</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-graduation-cap text-green-500"></i>
+                                <span class="text-gray-300">Plan de desarrollo personalizado por IA</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-medal text-orange-500"></i>
+                                <span class="text-gray-300">Gamificación y sistema de reconocimientos</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Metrics -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-400">90%</div>
+                                <div class="text-xs text-gray-500">Satisfacción empleados</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-pink-400">60%</div>
+                                <div class="text-xs text-gray-500">Mejora retención</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-400">45%</div>
+                                <div class="text-xs text-gray-500">Aumento productividad</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Laravel</span>
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-sm">Vue.js</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">Redis</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">HRMS Gestión Documental Completa</h3>
-                        <p class="project-summary">Sistema empresarial de recursos humanos</p>
+                
+                <!-- Complete HRMS -->
+                <div class="project-card glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 group">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-orange-600 to-red-700 p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-building text-white text-2xl"></i>
+                                </div>
+                                <div class="px-3 py-1 bg-white/20 rounded-full text-white text-sm font-semibold">
+                                    ENTERPRISE
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">HRMS Gestión Documental Completa</h3>
+                            <p class="text-orange-100">Suite empresarial con blockchain para verificación y compliance automático</p>
+                        </div>
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
                     </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Sistema de gestión de recursos humanos de nivel empresarial que maneja toda la documentación 
-                            de la empresa, gestión de archivos de empleados, automatización de procesos administrativos 
-                            y seguimiento de cumplimiento regulatorio con almacenamiento y recuperación segura.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-item">PHP</span>
-                            <span class="tech-item">MySQL</span>
-                            <span class="tech-item">Document Management</span>
-                            <span class="tech-item">Security</span>
+                    
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-link text-orange-500"></i>
+                                <span class="text-gray-300">Blockchain para verificación de documentos</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-eye text-blue-500"></i>
+                                <span class="text-gray-300">OCR y procesamiento automático de documentos</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-balance-scale text-green-500"></i>
+                                <span class="text-gray-300">Compliance automático con regulaciones laborales</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-cloud text-purple-500"></i>
+                                <span class="text-gray-300">Almacenamiento seguro multi-cloud</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Metrics -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-400">95%</div>
+                                <div class="text-xs text-gray-500">Reducción tiempo admin</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-red-400">100%</div>
+                                <div class="text-xs text-gray-500">Compliance regulatorio</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-400">80%</div>
+                                <div class="text-xs text-gray-500">Ahorro costos operativos</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm">Microservices</span>
+                            <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">Kubernetes</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">MongoDB</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Docker</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Project Stats -->
+            <div class="mt-16 grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-white text-2xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">4</div>
+                    <div class="text-gray-400">Sistemas Entregados</div>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">500+</div>
+                    <div class="text-gray-400">Usuarios Activos</div>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">60%</div>
+                    <div class="text-gray-400">Mejora Eficiencia</div>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-award text-white text-2xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">99.9%</div>
+                    <div class="text-gray-400">Uptime Promedio</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Education & Certifications -->
-    <section style="background: var(--secondary-color);">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Educación y Certificaciones</h2>
-                <p class="section-subtitle">
-                    Formación académica sólida complementada con certificaciones especializadas en desarrollo web
+    <!-- Education Section -->
+    <section class="py-20 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Formación Académica</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Base sólida en ingeniería de software complementada con certificaciones especializadas
                 </p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-graduation-cap"></i> Educación</h3>
-                    <div style="margin-top: 1rem;">
-                        <div style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">
-                            Ingeniería de Software | 9° Semestre
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Education -->
+                <div class="glass-effect rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mr-6">
+                            <i class="fas fa-graduation-cap text-white text-2xl"></i>
                         </div>
-                        <div style="color: var(--accent-color); margin-bottom: 0.5rem;">
-                            Universidad Militar Nueva Granada
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Ingeniería de Software</h3>
+                            <p class="text-blue-400 font-semibold">Universidad Militar Nueva Granada</p>
+                            <p class="text-gray-400">9° Semestre • 2018 - Presente</p>
                         </div>
-                        <div style="color: var(--text-muted); font-size: 0.9rem;">
-                            Enero 2018 — Presente
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-blue-500"></i>
+                            <span class="text-gray-300">Estructuras de Datos y Algoritmos Avanzados</span>
                         </div>
-                        <div style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.95rem;">
-                            Cursos relevantes: Estructuras de Datos, Diseño de Bases de Datos, 
-                            Desarrollo Web, Arquitectura de Software
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-blue-500"></i>
+                            <span class="text-gray-300">Diseño y Arquitectura de Bases de Datos</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-blue-500"></i>
+                            <span class="text-gray-300">Desarrollo Web Full-Stack</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-blue-500"></i>
+                            <span class="text-gray-300">Arquitectura de Software Empresarial</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-blue-500"></i>
+                            <span class="text-gray-300">Metodologías Ágiles y DevOps</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <div class="text-blue-400 font-semibold mb-2">Proyecto de Grado</div>
+                        <div class="text-gray-300 text-sm">
+                            Sistema de gestión empresarial con arquitectura de microservicios e implementación de IA para automatización de procesos
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-certificate"></i> Certificaciones</h3>
-                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
-                        <div>
-                            <div style="color: var(--text-primary); font-weight: 500;">Desarrollo de Apps Móviles</div>
-                            <div style="color: var(--accent-color); font-size: 0.9rem;">Oracle Alura Latam</div>
+                
+                <!-- Certifications -->
+                <div class="glass-effect rounded-2xl p-8">
+                    <div class="flex items-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mr-6">
+                            <i class="fas fa-certificate text-white text-2xl"></i>
                         </div>
                         <div>
-                            <div style="color: var(--text-primary); font-weight: 500;">HTML5 y CSS3 Avanzado</div>
-                            <div style="color: var(--accent-color); font-size: 0.9rem;">Oracle Alura Latam</div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Certificaciones Profesionales</h3>
+                            <p class="text-yellow-400 font-semibold">Desarrollo Web Especializado</p>
                         </div>
-                        <div>
-                            <div style="color: var(--text-primary); font-weight: 500;">Fundamentos de Desarrollo Web</div>
-                            <div style="color: var(--accent-color); font-size: 0.9rem;">HTML & CSS I-II</div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-android text-orange-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Mobile App Development</div>
+                                <div class="text-orange-400 text-sm font-medium">Oracle Alura Latam</div>
+                                <div class="text-gray-400 text-sm">Desarrollo nativo y híbrido, React Native, Flutter</div>
+                            </div>
                         </div>
-                        <div>
-                            <div style="color: var(--text-primary); font-weight: 500;">Principios UI/UX Design</div>
-                            <div style="color: var(--accent-color); font-size: 0.9rem;">LinkedIn Learning</div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-html5 text-blue-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Advanced HTML5 & CSS3</div>
+                                <div class="text-blue-400 text-sm font-medium">Oracle Alura Latam</div>
+                                <div class="text-gray-400 text-sm">CSS Grid, Flexbox, Animaciones, Responsive Design</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-paint-brush text-purple-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">UI/UX Design Principles</div>
+                                <div class="text-purple-400 text-sm font-medium">LinkedIn Learning</div>
+                                <div class="text-gray-400 text-sm">Design Thinking, Prototipado, Usabilidad</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-code text-green-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Web Development Fundamentals</div>
+                                <div class="text-green-400 text-sm font-medium">HTML & CSS I-II</div>
+                                <div class="text-gray-400 text-sm">Fundamentos sólidos, Semántica, Accesibilidad</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1160,86 +1351,176 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contacto">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Contacto</h2>
-                <p class="section-subtitle">
-                    ¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudarte a crear soluciones digitales innovadoras
+    <section id="contacto" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Conectemos</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    ¿Tienes un proyecto ambicioso? Hablemos sobre cómo puedo transformar tu visión en realidad digital
                 </p>
             </div>
-            <div class="contact-grid">
-                <div class="contact-info-section">
-                    <h3>Información de Contacto</h3>
-                    <div class="contact-details">
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
+            
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4 group">
+                                <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-envelope text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Email</div>
+                                    <div class="text-white font-semibold">sebastianpaezservices@gmail.com</div>
+                                </div>
                             </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Email</div>
-                                <div class="contact-value">sebastianpaezservices@gmail.com</div>
+                            
+                            <div class="flex items-center space-x-4 group">
+                                <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-phone text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">WhatsApp</div>
+                                    <div class="text-white font-semibold">+57 316 023 90 57</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4 group">
+                                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fab fa-linkedin text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">LinkedIn</div>
+                                    <div class="text-white font-semibold">/in/john-valencia</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4 group">
+                                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Ubicación</div>
+                                    <div class="text-white font-semibold">Santa Lucía, Chía, Cundinamarca</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4 group">
+                                <div class="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-globe text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Portfolio</div>
+                                    <div class="text-white font-semibold">www.johnvalencia.dev</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Teléfono</div>
-                                <div class="contact-value">+57 316 023 90 57</div>
-                            </div>
+                    </div>
+                    
+                    <!-- Availability Status -->
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-green-400 font-semibold">Disponible para proyectos</span>
                         </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Ubicación</div>
-                                <div class="contact-value">Santa Lucía, Chía, Cundinamarca, Colombia</div>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Portfolio</div>
-                                <div class="contact-value">www.johnvalencia.dev</div>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">LinkedIn</div>
-                                <div class="contact-value">/in/john-valencia</div>
-                            </div>
+                        <p class="text-gray-300 mb-4">
+                            Actualmente aceptando proyectos de desarrollo web empresarial y consultoría técnica.
+                        </p>
+                        <div class="text-sm text-gray-400">
+                            <i class="fas fa-clock mr-2"></i>
+                            Tiempo de respuesta: 24 horas máximo
                         </div>
                     </div>
                 </div>
-                <div class="contact-info-section">
-                    <h3>¿Listo para colaborar?</h3>
-                    <div style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7;">
-                        Como desarrollador Full-Stack especializado en soluciones empresariales, estoy disponible 
-                        para proyectos que requieran:
-                    </div>
-                    <div class="skill-tags" style="margin-bottom: 2rem;">
-                        <span class="skill-tag">Sistemas HRMS</span>
-                        <span class="skill-tag">Gestión de Inventarios</span>
-                        <span class="skill-tag">APIs RESTful</span>
-                        <span class="skill-tag">Aplicaciones Web</span>
-                        <span class="skill-tag">Bases de Datos</span>
-                        <span class="skill-tag">Consultoría Técnica</span>
-                    </div>
-                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(59, 130, 246, 0.1);">
-                        <div style="color: var(--accent-color); font-weight: 600; margin-bottom: 0.5rem;">
-                            <i class="fas fa-clock"></i> Disponibilidad
+                
+                <!-- Services & CTA -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">Servicios Especializados</h3>
+                        <div class="grid gap-4">
+                            <div class="glass-effect rounded-xl p-4 hover:border-primary-500/50 transition-all duration-300 group">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-server text-primary-400 group-hover:scale-110 transition-transform"></i>
+                                    <div>
+                                        <div class="text-white font-semibold">Sistemas HRMS</div>
+                                        <div class="text-gray-400 text-sm">Gestión completa de recursos humanos</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="glass-effect rounded-xl p-4 hover:border-green-500/50 transition-all duration-300 group">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-boxes text-green-400 group-hover:scale-110 transition-transform"></i>
+                                    <div>
+                                        <div class="text-white font-semibold">Gestión de Inventarios</div>
+                                        <div class="text-gray-400 text-sm">Seguimiento en tiempo real y analytics</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="glass-effect rounded-xl p-4 hover:border-purple-500/50 transition-all duration-300 group">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-code text-purple-400 group-hover:scale-110 transition-transform"></i>
+                                    <div>
+                                        <div class="text-white font-semibold">Desarrollo Full-Stack</div>
+                                        <div class="text-gray-400 text-sm">PHP, Laravel, JavaScript, MySQL</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="glass-effect rounded-xl p-4 hover:border-yellow-500/50 transition-all duration-300 group">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-chart-line text-yellow-400 group-hover:scale-110 transition-transform"></i>
+                                    <div>
+                                        <div class="text-white font-semibold">Consultoría Técnica</div>
+                                        <div class="text-gray-400 text-sm">Arquitectura y optimización</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div style="color: var(--text-secondary);">
-                            Disponible para proyectos freelance y consultoría. 
-                            Tiempo de respuesta: 24 horas máximo.
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="space-y-4">
+                        <a href="mailto:sebastianpaezservices@gmail.com" class="w-full bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 px-8 py-4 rounded-xl text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl flex items-center justify-center space-x-3 group">
+                            <i class="fas fa-paper-plane group-hover:animate-bounce"></i>
+                            <span>Enviar Email</span>
+                        </a>
+                        
+                        <a href="https://wa.me/573160239057" target="_blank" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-8 py-4 rounded-xl text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl flex items-center justify-center space-x-3 group">
+                            <i class="fab fa-whatsapp group-hover:animate-pulse"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        
+                        <a href="https://linkedin.com/in/john-valencia" target="_blank" class="w-full border-2 border-primary-500 hover:bg-primary-500 px-8 py-4 rounded-xl text-primary-400 hover:text-white font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 group">
+                            <i class="fab fa-linkedin group-hover:animate-pulse"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="glass-effect rounded-2xl p-6">
+                        <h4 class="text-lg font-bold text-white mb-4">Por qué elegirme</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary-400">99.9%</div>
+                                <div class="text-xs text-gray-400">Uptime garantizado</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-400">24h</div>
+                                <div class="text-xs text-gray-400">Tiempo respuesta</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-400">3+</div>
+                                <div class="text-xs text-gray-400">Años experiencia</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-400">100%</div>
+                                <div class="text-xs text-gray-400">Satisfacción cliente</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1248,37 +1529,78 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="mailto:sebastianpaezservices@gmail.com" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="tel:+573160239057" class="social-link">
-                    <i class="fas fa-phone"></i>
-                </a>
-                <a href="https://linkedin.com/in/john-valencia" class="social-link" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://www.johnvalencia.dev" class="social-link" target="_blank">
-                    <i class="fas fa-globe"></i>
-                </a>
-                <a href="https://github.com/john-valencia" class="social-link" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-            <div style="color: var(--text-muted); margin-bottom: 1rem;">
-                <strong>John Sebastian Valencia Paez</strong> - Full-Stack Developer
-            </div>
-            <div style="color: var(--text-muted); font-size: 0.9rem;">
-                © 2025 Todos los derechos reservados. Diseñado y desarrollado con 
-                <i class="fas fa-heart" style="color: #ef4444;"></i> usando tecnologías modernas.
+    <footer class="bg-dark-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <!-- Logo and Name -->
+                <div class="flex items-center justify-center space-x-4 mb-8">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">JSV</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold gradient-text">John Sebastian Valencia</div>
+                        <div class="text-gray-400">Full-Stack Developer & Digital Solutions Expert</div>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="mailto:sebastianpaezservices@gmail.com" class="w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-envelope text-white"></i>
+                    </a>
+                    <a href="https://wa.me/573160239057" target="_blank" class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/john-valencia" target="_blank" class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-linkedin text-white"></i>
+                    </a>
+                    <a href="https://github.com/john-valencia" target="_blank" class="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-github text-white"></i>
+                    </a>
+                    <a href="https://www.johnvalencia.dev" target="_blank" class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-globe text-white"></i>
+                    </a>
+                </div>
+                
+                <!-- Footer Text -->
+                <div class="border-t border-gray-700 pt-8">
+                    <div class="text-gray-400 mb-4">
+                        <strong class="text-white">John Sebastian Valencia Paez</strong> • Full-Stack Developer
+                    </div>
+                    <div class="text-gray-500 text-sm">
+                        © 2025 Todos los derechos reservados. Diseñado y desarrollado con 
+                        <i class="fas fa-heart text-red-500 mx-1"></i> 
+                        usando tecnologías modernas.
+                    </div>
+                    <div class="text-gray-500 text-xs mt-2">
+                        Chía, Cundinamarca, Colombia • Transformando ideas en soluciones digitales excepcionales
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // Smooth scrolling para los enlaces de navegación
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.querySelector('.glass-effect').style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                navbar.querySelector('.glass-effect').style.background = 'rgba(15, 23, 42, 0.8)';
+            }
+        });
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1292,65 +1614,18 @@
             });
         });
 
-        // Efecto de scroll para la navegación
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(15, 23, 42, 0.98)';
-                nav.style.backdropFilter = 'blur(20px)';
-            } else {
-                nav.style.background = 'rgba(15, 23, 42, 0.95)';
-                nav.style.backdropFilter = 'blur(10px)';
-            }
-        });
-
-        // Animación de aparición al hacer scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observar elementos para animación
-        document.querySelectorAll('.skill-category, .experience-item, .project-card, .stat-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Efecto de escritura para el código
-        const codeLines = document.querySelectorAll('.code-line');
-        codeLines.forEach((line, index) => {
-            line.style.opacity = '0';
-            line.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.5}s`;
-        });
-
-        // Contador animado para las estadísticas
-        function animateCounter(element, target) {
-            const duration = 2000;
-            const startTime = performance.now();
+        // Counter animation
+        function animateCounter(element, target, duration = 2000) {
+            const start = performance.now();
             const startValue = 0;
 
             function updateCounter(currentTime) {
-                const elapsed = currentTime - startTime;
+                const elapsed = currentTime - start;
                 const progress = Math.min(elapsed / duration, 1);
                 
                 const currentValue = startValue + (target - startValue) * progress;
                 
-                if (typeof target === 'string' && target.includes('%')) {
-                    element.textContent = Math.round(currentValue) + '%';
-                } else if (typeof target === 'string' && target.includes('+')) {
-                    element.textContent = Math.round(currentValue) + '+';
-                } else if (typeof target === 'string' && target.includes('.')) {
+                if (element.dataset.count.includes('.')) {
                     element.textContent = currentValue.toFixed(1);
                 } else {
                     element.textContent = Math.round(currentValue);
@@ -1364,35 +1639,113 @@
             requestAnimationFrame(updateCounter);
         }
 
-        // Iniciar animación de contadores cuando sean visibles
-        const statsObserver = new IntersectionObserver(function(entries) {
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const numberElement = entry.target.querySelector('.stat-number');
-                    const text = numberElement.textContent;
-                    
-                    let targetValue;
-                    if (text.includes('%')) {
-                        targetValue = parseInt(text.replace('%', ''));
-                        animateCounter(numberElement, targetValue + '%');
-                    } else if (text.includes('+')) {
-                        targetValue = parseInt(text.replace('+', ''));
-                        animateCounter(numberElement, targetValue + '+');
-                    } else if (text.includes('.')) {
-                        targetValue = parseFloat(text);
-                        animateCounter(numberElement, text);
-                    } else {
-                        targetValue = parseInt(text);
-                        animateCounter(numberElement, targetValue);
+                    // Counter animation
+                    const counter = entry.target.querySelector('[data-count]');
+                    if (counter && !counter.classList.contains('animated')) {
+                        counter.classList.add('animated');
+                        const target = parseFloat(counter.dataset.count);
+                        animateCounter(counter, target);
                     }
                     
-                    statsObserver.unobserve(entry.target);
+                    // Slide up animation
+                    if (entry.target.classList.contains('animate-slide-up')) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
                 }
             });
-        }, { threshold: 0.5 });
+        }, observerOptions);
 
-        document.querySelectorAll('.stat-card').forEach(card => {
-            statsObserver.observe(card);
+        // Observe elements
+        document.querySelectorAll('[data-count]').forEach(el => {
+            observer.observe(el.closest('div'));
+        });
+
+        document.querySelectorAll('.animate-slide-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) * 100;
+            const mouseY = (e.clientY / window.innerHeight) * 100;
+            
+            document.querySelectorAll('.parallax-element').forEach(el => {
+                const speed = el.dataset.speed || 0.1;
+                const x = (mouseX - 50) * speed;
+                const y = (mouseY - 50) * speed;
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Live typing effect for code
+        function typeCode() {
+            const codeLines = document.querySelectorAll('.code-block .text-sm > div');
+            codeLines.forEach((line, index) => {
+                line.style.opacity = '0';
+                setTimeout(() => {
+                    line.style.opacity = '1';
+                    line.style.animation = 'fade-in 0.5s ease forwards';
+                }, index * 100 + 500);
+            });
+        }
+
+        // Live metrics update
+        function updateMetrics() {
+            const activeSystems = document.getElementById('active-systems');
+            const uptime = document.getElementById('uptime');
+            
+            if (activeSystems && uptime) {
+                setInterval(() => {
+                    // Simulate live data
+                    const systems = Math.floor(Math.random() * 2) + 4; // 4-5
+                    const uptimeValue = (99.8 + Math.random() * 0.2).toFixed(1);
+                    
+                    activeSystems.textContent = systems;
+                    uptime.textContent = uptimeValue + '%';
+                }, 5000);
+            }
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            typeCode();
+            updateMetrics();
+            
+            // Add loading animation to skill cards
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                }, index * 100);
+            });
+        });
+
+        // Add glow effect on hover for interactive elements
+        document.querySelectorAll('.project-card, .skill-card, .glass-effect').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 20px 40px rgba(59, 130, 246, 0.2)';
+            });
+            
+            el.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
         });
     </script>
 </body>
